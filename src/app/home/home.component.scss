@@ -107,6 +107,7 @@
     max-height: 30%;
     overflow: auto;
     padding: 5px 0;
+    width: 100%;
   }
   .author-wrapper {
     align-self: flex-end;
@@ -161,6 +162,7 @@ h4 {
   font-weight: bold;
   line-height: normal;
   margin: 10px 0;
+  max-height: 30%;
 }
 
 .filter-input {
