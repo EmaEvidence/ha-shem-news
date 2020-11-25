@@ -1,0 +1,50 @@
+<div class="toolbar" role="banner">
+  <span>Ha-Shem News</span>
+  <div class="spacer"></div>
+  <a class="link" (click)="setNewsType('techcrunch')" [style.color]="isActive('techcrunch') ? '#ccc' : '#fff'" href="#" title="Home">
+    Tech Crunch
+  </a>
+  <a class="link" (click)="setNewsType('bitcoin')" [style.color]="isActive('bitcoin') ? '#ccc' : '#fff'" href="#" title="Home">
+    Bitcoin
+  </a>
+  <a class="link" (click)="setNewsType('us')" [style.color]="isActive('us') ? '#ccc' : '#fff'" href="#" title="Home">
+    US Headlines
+  </a>
+</div>
+
+<div class="content" role="main">
+  <div *ngIf="getError" class="error">
+    <span>{{getError.message}}</span>
+    <button (click)="closeErrorDisplay()"> x </button>
+  </div>
+  <div *ngIf="loading" class="loader">
+    <span>Loading...</span>
+  </div>
+  <div class="card-container filter-input-container">
+    <div class="input-wrapper">
+      <label for="author">Filter by Author</label>
+      <input class="filter-input" (keyup)="filterNews('author', author)"  [(ngModel)]="author" id="author" type="text" placeholder="Enter Author Name" />
+    </div>
+    <div class="input-wrapper">
+      <label for="source">Filter by Source</label>
+      <input class="filter-input" (keyup)="filterNews('source', source)" id="source" [(ngModel)]="source" type="text" placeholder="Enter Source" />
+    </div>
+    <div class="input-wrapper">
+      <label for="p-date">Filter by Published Date</label>
+      <input class="filter-input" (change)="filterNews('publishedDate', publishedDate)" id="p-date" type="text" [(ngModel)]="publishedDate" type="date" />
+    </div>
+  </div>
+  <div class="card-container news-container">
+    <a *ngFor="let article of filteredArticles" class="card" target="_blank" href={{article.url}}>
+      <img src={{article.urlToImage}}  />
+      <h4>{{article.title}}</h4>
+      <span class="description">{{article.description}}</span>
+      <div class="author-wrapper">
+        <span *ngIf="article.author">{{article.author}}</span>
+        <a>more...</a>
+      </div>
+    </a>
+    <span *ngIf="filteredArticles.length === 0" class="no-data"> No Data</span>
+  </div>
+
+</div>
